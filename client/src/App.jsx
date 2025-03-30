@@ -1,35 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Inputs from "./components/inputs";
+import Text from "./components/text";
+import Visual from "./components/visual";
+
+
+const defFlight = {
+  altitude: 0,
+  his: 0,
+  adi: 0,
+};
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [mode, setMode] = useState("add");
+  const [lastFlight, setLastFlight] = useState(null);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginTop: "2rem" }}>
+
+      <div style={{ display: "flex", gap: "1rem", marginBottom: "2rem" }}>
+
+        <button onClick={() => setMode("text")}>TEXT</button>
+        <button onClick={() => setMode("visual")}>VISUAL</button>
+        <button onClick={() => setMode("add")}>+</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+
+      
+      {mode === "add" && <Inputs setLastFlight={setLastFlight} />}
+      {mode === "text" && <Text data={lastFlight || defFlight} />}
+      {mode === "visual" && <Visual data={lastFlight || defFlight} />}
+
+    </div>
+  );
 }
 
-export default App
+export default App;

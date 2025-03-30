@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
-const FlightData=require("../flight_monitor_models.js");
+const FlightData = require("../models/flight_monitor_models.js");
+
+
 
 router.post("/", async (req, res) => {
     try {
